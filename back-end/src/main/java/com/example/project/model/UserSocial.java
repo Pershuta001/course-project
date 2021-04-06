@@ -21,6 +21,6 @@ public class UserSocial {
     @EmbeddedId
     private UserSocialId usId;
 
-    @Column(name = "shareableData", nullable = false)
+    @Column(name = "shareable_data", nullable = false)
     private String shareableData;
 }

@@ -27,12 +27,12 @@ public class Beacon {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "xCoordinate",
+    @Column(name = "x_coordinate",
             updatable = false,
             nullable = false)
     private Double xCoordinate;
 
-    @Column(name = "yCoordinate",
+    @Column(name = "y_coordinate",
             updatable = false,
             nullable = false)
     private Double yCoordinate;

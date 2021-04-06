@@ -29,13 +29,13 @@ public class User {
     @Column(name = "login",updatable = false, nullable = false, unique = true)
     private String login;
 
-    @Column(name = "hashedPassword", nullable = false)
+    @Column(name = "hashed_password", nullable = false)
     private String hashedPassword;
 
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Column(name = "phone1", nullable = false)
