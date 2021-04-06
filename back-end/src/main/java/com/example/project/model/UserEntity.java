@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -41,10 +41,10 @@ public class User {
     @Column(name = "phone1", nullable = false)
     private String phone1;
 
-    @Column(name = "phone2", nullable = false)
+    @Column(name = "phone2")
     private String phone2;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private String status;
 
     @Column(name = "role", nullable = false)

@@ -53,7 +53,7 @@ public class Beacon {
     @JoinColumn(name = "user_id",
             updatable = false,
             nullable = false)
-    private User userId;
+    private UserEntity userEntityId;
 
     @ManyToMany
     private List<Tag> tags;

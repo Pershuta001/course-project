@@ -29,11 +29,11 @@ public class UserHistory {
 
     @ManyToOne
     @JoinColumn(name = "user1_id", updatable = false, nullable = false)
-    private User user1;
+    private UserEntity userEntity1;
 
     @ManyToOne
     @JoinColumn(name = "user2_id")
-    private User user2;
+    private UserEntity userEntity2;
 
     @Column(name = "date", nullable = false)
     private Date date;
