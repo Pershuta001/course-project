@@ -36,8 +36,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             return authenticationManager.authenticate(authentication);
         } catch (IOException e) {
             logger.error("User not authenticated");
-            throw new RuntimeException("User not authenticated");
+           // throw new RuntimeException("User not authenticated");
         }
+        return null;
     }
 
     @Override

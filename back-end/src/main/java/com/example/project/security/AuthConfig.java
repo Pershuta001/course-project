@@ -14,6 +14,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import static java.util.Arrays.asList;
 
 @Configuration
 @RequiredArgsConstructor
@@ -21,12 +26,12 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 
     private final ApplicationUserService applicationUserService;
     private final JwtConfig jwtConfig;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable().authorizeRequests();
         http
-                //.cors().and()
-                .csrf()
-                .disable()
+
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), applicationUserService))
@@ -34,7 +39,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user/**").hasRole(Roles.USER.name())
                 // .antMatchers("/secured-api-admin").hasRole(Roles.ADMIN.name())
-                .antMatchers( "/sign-up")
+                .antMatchers("/sign-up")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
@@ -57,4 +62,15 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(applicationUserService);
         return provider;
     }
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedMethods(asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
+        corsConfiguration.setAllowedHeaders(asList("Authorization", "*"));
+
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration.applyPermitDefaultValues());
+        return source;
+    }
+
 }
