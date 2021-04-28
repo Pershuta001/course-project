@@ -28,6 +28,10 @@ public class UserHistory {
     private UUID id;
 
     @ManyToOne
+    @JoinColumn(name = "beacon_id", updatable = false, nullable = false)
+    private Beacon beaconId;
+
+    @ManyToOne
     @JoinColumn(name = "user1_id", updatable = false, nullable = false)
     private UserEntity userEntity1;
 

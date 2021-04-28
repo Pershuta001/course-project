@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "user_social")
+@Table(name = "user_social" )
 public class UserSocial {
 
     @EmbeddedId
