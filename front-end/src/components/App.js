@@ -13,6 +13,7 @@ import {useSelector} from "react-redux";
 import {selectUser} from "../features/auth/Auth";
 import SignInUpPage from "./SignInUpPage";
 import Home from "./home/Home";
+import Profile from "./home/ProfilePage";
 import {PrivateRoute} from "./utils/PrivateRoute";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Switch>
                 <Route exact path='/signin' component={SignInUpPage}/>
                 <Route exact path='/home' component={Home}/>
+                <Route exact path='/profile' component={Profile}/>
                 <Redirect from='/' to='/signin'/>
             </Switch>
         </BrowserRouter>

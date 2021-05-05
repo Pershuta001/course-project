@@ -55,7 +55,10 @@ public class ApplicationUserService implements UserDetailsService {
         String res = "{";
         res += String.format("\"name\": \"%s\",", user.getFirstName());
         res += String.format("\"email\": \"%s\",", user.getLogin());
-        res += String.format("\"phone\": \"%s\"", user.getPhone1());
+        res += String.format("\"phone1\": \"%s\",", user.getPhone1());
+        res += String.format("\"phone2\": \"%s\",", user.getPhone2());
+        res += String.format("\"role\": \"%s\",", user.getRole());
+        res += String.format("\"lastName\": \"%s\"", user.getLastName());
         res += "}";
         return res;
     }
