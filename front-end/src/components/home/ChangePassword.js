@@ -1,9 +1,16 @@
-import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Grid from "@material-ui/core/Grid";
-import React from "react";
+import React, {useState} from "react";
 import {makeStyles} from "@material-ui/styles";
+import {
+    validatePassword,
+    validatePasswordRep
+} from "../utils/Validation";
+import axios from "axios";
+import {useSelector} from "react-redux";
+import {selectStatus} from "../../features/auth/Auth";
+import Api from "../../api/Api";
 
 const useStyles = makeStyles(() => ({
     textField: {
@@ -20,39 +27,113 @@ const useStyles = makeStyles(() => ({
         borderRadius: "25px"
     },
     center: {
-        marginLeft:"100px"
+        marginLeft: "100px"
+    },
+    form: {
+        margin: "0",
+        width: "500px",
     }
 }));
 export default function ChangePassword(props) {
 
+
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [newPasswordRep, setNewPasswordRep] = useState("");
+
+    const [validPass, setValidPass] = useState(true);
+    const [validNewPass, setValidNewPass] = useState(true);
+    const [validNewPassRep, setValidNewPassRep] = useState(true);
+
     const classes = useStyles();
+
+    const auth = useSelector(selectStatus);
+
+    function validateFields() {
+
+        const isValidPassword = validatePassword(oldPassword) === true;
+        setValidPass(isValidPassword);
+
+        const isValidNewPassword = validatePassword(newPassword) === true;
+        setValidNewPass(isValidNewPassword);
+
+        const isValidNewPasswordRep = validatePasswordRep(newPassword, newPasswordRep) === true;
+        setValidNewPassRep(isValidNewPasswordRep);
+
+        return isValidPassword && isValidNewPassword && isValidNewPasswordRep;
+    }
+
+    function doChangePass(e) {
+        e.preventDefault();
+        if (validateFields()) {
+           Api.put('/profile/password/change', {
+                oldPass: oldPassword,
+                newPass: newPassword,
+            })
+                .then(originalPromiseResult => {
+                    console.log(originalPromiseResult)
+                    // showSnack("success", "You successfully signed up !");
+                })
+                .catch(rejectedValueOrSerializedError => {
+                    // showSnack("error", "Wrong password or something :/");
+                    console.log(rejectedValueOrSerializedError)
+                })
+        }
+    }
+
     return (
         <Grid>
-            <div className={props.classes.fieldsMargin}>
-                <TextField type="password"
-                           className={classes.textField}
-                           placeholder="Old password"
+            <form noValidate className={classes.form}>
+                <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Old password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    onChange={e => setOldPassword(e.target.value)}
+                    helperText={
+                        validPass ? '' : validatePassword(oldPassword)
+                    }
+                    error={!validPass}
                 />
-            </div>
-            <div className={props.classes.fieldsMargin}>
-                <TextField type="password"
-                           className={classes.textField}
-                           placeholder="New password"
+
+                <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="New password"
+                    type="password"
+                    id="passwordNew"
+                    autoComplete="current-password"
+                    onChange={e => setNewPassword(e.target.value)}
+                    helperText={
+                        validNewPass ? '' : validatePassword(newPassword)
+                    }
+                    error={!validNewPass}
                 />
-            </div>
-            <div className={props.classes.fieldsMargin}>
-                <TextField type="password"
-                           className={classes.textField}
-                           placeholder="New password again"
+                <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="New password again"
+                    type="password"
+                    id="passwordRep"
+                    autoComplete="current-password"
+                    onChange={e => setNewPasswordRep(e.target.value)}
+                    helperText={
+                        validNewPassRep ? '' : validatePasswordRep(newPassword, newPasswordRep)
+                    }
+                    error={!validNewPassRep}
+
                 />
-            </div>
-            <div className={classes.center}>
-                <ButtonBase className={classes.button}>
+                <ButtonBase onClick={doChangePass} className={classes.button}>
                     <span className={props.classes.buttonText}>
-                        UPDATE
+                        Update
                     </span>
                 </ButtonBase>
-            </div>
+            </form>
         </Grid>
     );
 }

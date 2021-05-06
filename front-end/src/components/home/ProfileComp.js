@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
@@ -10,6 +10,8 @@ import {selectUser} from "../../features/auth/Auth";
 import ScrollArea from 'react-scrollbar';
 import Social from "./SocialComp";
 import ChangePassword from "./ChangePassword";
+import {validatePhone} from "../utils/Validation";
+import Api from "../../api/Api";
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -67,7 +69,7 @@ const useStyles = makeStyles(() => ({
         width: "400px",
         height: "200px"
     },
-    textField:{
+    textField: {
         width: "350px"
     }
 
@@ -78,9 +80,47 @@ export default function ProfileComp() {
 
     const classes = useStyles();
 
-    const socials = ["instagram", "telegram","facebook","chat"];
-
+    const socials = ["instagram", "telegram", "facebook", "chat"];
+    const [social, setSocial] = useState('');
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
     const user = useSelector(selectUser);
+
+    function addSocial() {
+        Api.post('/profile/social/add/'+social)
+            .then(originalPromiseResult => {
+                console.log(originalPromiseResult)
+                // showSnack("success", "You successfully signed up !");
+            })
+            .catch(rejectedValueOrSerializedError => {
+                // showSnack("error", "Wrong password or something :/");
+                console.log(rejectedValueOrSerializedError)
+            })
+    }
+
+    function updateLastname() {
+        Api.put('/profile/lastname/update/' + lastname)
+            .then(originalPromiseResult => {
+                console.log(originalPromiseResult)
+                // showSnack("success", "You successfully signed up !");
+            })
+            .catch(rejectedValueOrSerializedError => {
+                // showSnack("error", "Wrong password or something :/");
+                console.log(rejectedValueOrSerializedError)
+            })
+    }
+
+    function updateFirstname() {
+        Api.put('/profile/firstname/update/' + firstname)
+            .then(originalPromiseResult => {
+                console.log(originalPromiseResult)
+                // showSnack("success", "You successfully signed up !");
+            })
+            .catch(rejectedValueOrSerializedError => {
+                // showSnack("error", "Wrong password or something :/");
+                console.log(rejectedValueOrSerializedError)
+            })
+    }
 
     return (
         <Paper className={classes.paper}>
@@ -101,8 +141,17 @@ export default function ProfileComp() {
                                 Your first name:
                             </Typography>
                             <div className={classes.fieldsMargin}>
-                                <TextField placeholder={user.name} className={classes.textField}/>
-                                <ButtonBase className={classes.buttonStyle}>
+                                <TextField placeholder={user.name}
+                                           className={classes.textField}
+                                           type="text"
+                                           fullWidth
+                                           id="firstname"
+                                           name="firstname"
+                                           autoFocus
+                                           onChange={e => setFirstname(e.target.value)}
+                                           required={true}
+                                />
+                                <ButtonBase className={classes.buttonStyle} onClick={updateFirstname}>
                                 <span className={classes.buttonText}>
                                     Update
                                 </span>
@@ -114,8 +163,17 @@ export default function ProfileComp() {
                                 Your last name:
                             </Typography>
                             <div className={classes.fieldsMargin}>
-                                <TextField placeholder={user.lastName} className={classes.textField}/>
-                                <ButtonBase className={classes.buttonStyle}>
+                                <TextField placeholder={user.lastName}
+                                           className={classes.textField}
+                                           type="text"
+                                           fullWidth
+                                           id="lastname"
+                                           name="lastname"
+                                           autoFocus
+                                           onChange={e => setLastname(e.target.value)}
+                                           required={true}
+                                />
+                                <ButtonBase className={classes.buttonStyle} onClick={updateLastname}>
                                 <span className={classes.buttonText}>
                                     Update
                                 </span>
@@ -135,8 +193,18 @@ export default function ProfileComp() {
                                 Add social:
                             </Typography>
                             <div className={classes.fieldsMargin}>
-                                <TextField className={classes.textField}/>
-                                <ButtonBase className={classes.buttonStyle}>
+                                <TextField
+                                    type="text"
+                                    fullWidth
+                                    id="social"
+                                    name="social"
+                                    autoComplete="phone"
+                                    className={classes.textField}
+                                    autoFocus
+                                    onChange={e => setSocial(e.target.value)}
+                                    required={true}
+                                />
+                                <ButtonBase className={classes.buttonStyle} onClick={addSocial}>
                                 <span className={classes.buttonText}>
                                     ADD
                                 </span>
@@ -147,7 +215,7 @@ export default function ProfileComp() {
                             <Typography className={classes.labelStyle}>
                                 Change password:
                             </Typography>
-                            <ChangePassword classes = {classes}/>
+                            <ChangePassword classes={classes}/>
                         </Grid>
                     </Grid>
                 </Grid>
