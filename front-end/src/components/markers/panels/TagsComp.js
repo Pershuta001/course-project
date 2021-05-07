@@ -1,11 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Checkbox from "@material-ui/core/Checkbox";
 import {makeStyles} from "@material-ui/styles";
 import ScrollArea from "react-scrollbar";
 import FormGroup from "@material-ui/core/FormGroup";
-
+import Api from "../../../api/Api";
+import {useDispatch} from "react-redux";
+import {unwrapResult} from "@reduxjs/toolkit";
 
 const useStyles = makeStyles(() => ({
     scrollArea: {
@@ -36,16 +38,40 @@ const WhiteCheckbox = withStyles({
 
 
 export default function Tags(props) {
+
+    const dispatch = useDispatch();
+
+    const getTags = () => {
+        Api.get('/tags/all')
+            .then(function(response){ return response.json(); })
+            .then(function(data) {
+                setTags(data);
+                console.log(data)
+            })
+    }
+
     const classes = useStyles();
-    const [tags, setTags] = React.useState(props.tags);
+    const [tags, setTags] = useState(null);
     const checked = initMap();
 
+
     function initMap() {
+        console.log("in tag: " + tags);
         let temp = new Map();
         for (let tag of tags) {
             temp.set(tag, false);
         }
         return temp;
+    }
+
+    const activeTags = () => {
+        let res = [];
+        checked.forEach((v, k) => {
+            if (v) {
+                res.push(k)
+            }
+        })
+        return res;
     }
 
     const tagList = tags.map((tag) => renderTag(tag));
@@ -68,8 +94,10 @@ export default function Tags(props) {
 
     const handleChange = (tag) => {
         checked.set(tag, !checked.get(tag))
-        console.log(checked);
+        const active = activeTags();
+        props.activeTags(JSON.stringify(active));
     };
+
     return (
         <ScrollArea
             speed={0.8}

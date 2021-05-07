@@ -16,7 +16,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "beacons")
-public class Beacon {
+public class Marker {
 
     @Id
     @GeneratedValue(generator = "UUID")

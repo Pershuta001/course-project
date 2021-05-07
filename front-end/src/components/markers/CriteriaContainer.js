@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Grid} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
@@ -12,41 +12,47 @@ const useStyles = makeStyles({
     root: {
         flexGrow: 1,
         background: "#3D8A78",
-        color :"#ffffff"
+        color: "#ffffff"
     },
-    indicator:{
-        backgroundColor:'#ffffff'
+    indicator: {
+        backgroundColor: '#ffffff'
     },
-    back:{
-        background:"#3D8A78"
+    back: {
+        background: "#3D8A78"
     }
 });
 
-export default function CriteriaContainer() {
+export default function CriteriaContainer(props) {
+    console.log("props " +props)
+    const handleContainer = (responseData) => {
+        props.responseData(responseData);
+
+    };
 
     const classes = useStyles();
-    const tags = ["tag1","tag2","tag3","tag4"];
+    const tags = props.tags;
+
     const [value, setValue] = React.useState(0);
-    const [view, setView] = React.useState(<CreateContainer tags={tags}/>);
+    const [view, setView] = React.useState(<CreateContainer tags={tags} responseData={handleContainer}/>);
 
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
         if (value === 1)
-            setView(<CreateContainer tags={tags}/>);
+            setView(<CreateContainer tags={tags} responseData={handleContainer}/>);
         else
-            setView(<SearchContainer tags={tags}/>);
+            setView(<SearchContainer tags={tags} responseData={handleContainer}/>);
     };
+
 
     return (
         <Grid className={classes.back}>
-            <Grid>
             <Paper className={classes.root}>
                 <Tabs
                     value={value}
                     onChange={handleChange}
                     indicatorColor='primary'
-                    classes={{ indicator: classes.indicator }}
+                    classes={{indicator: classes.indicator}}
                     centered
                 >
                     <Tab label="Create"/>
@@ -54,10 +60,6 @@ export default function CriteriaContainer() {
                 </Tabs>
             </Paper>
             {view}
-            </Grid>
-            <Grid>
-
-            </Grid>
         </Grid>
     );
 }

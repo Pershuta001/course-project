@@ -13,12 +13,6 @@ public class UserController {
     private final UserService userService;
 
     @ResponseBody
-    @GetMapping("/user/api")
-    public String response() {
-        return "success";
-    }
-
-    @ResponseBody
     @PutMapping("/profile/password/change")
     public ResponseEntity<String> changePassword(
             @RequestBody ChangePasswordView changePasswordView

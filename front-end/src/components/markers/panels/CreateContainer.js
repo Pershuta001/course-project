@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button, Grid} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
@@ -47,8 +47,8 @@ const useStyles = makeStyles(() => ({
 
     },
     buttonStyle: {
-        margin:"40px 50px",
-        padding:"10px 10px",
+        margin: "40px 50px",
+        padding: "10px 10px",
         backgroundColor: "#4CBBA0",
         borderRadius: "20px",
         borderColor: "#ffffff"
@@ -56,17 +56,38 @@ const useStyles = makeStyles(() => ({
 
 }));
 
+let tagsAct = '';
+
 export default function CreateContainer(props) {
 
-     const classes = useStyles();
+    const classes = useStyles();
+
+    const [activeTags, setActiveTags] = useState('');
+    const [description, setDescription] = useState('');
+    const [minRange, setMinRange] = useState(0);
+    const [maxRange, setMaxRange] = useState(20);
+
+    function handleClick(tags) {
+        const response = {
+            activeTags: tagsAct,
+            description: description,
+            minRange: minRange,
+            maxRange: maxRange
+        };
+        props.responseData(JSON.stringify(response));
+    }
+
+    function handleActiveTabs(tags) {
+        tagsAct = tags;
+    }
 
     return (
-        <Grid className={classes.background} direction="column">
+        <Grid className={classes.background}>
             <Grid>
                 <span className={classes.header}>Create marker</span>
             </Grid>
             <Grid>
-               <TagsComp tags={props.tags}/>
+                <TagsComp tags={props.tags} activeTags={handleActiveTabs}/>
             </Grid>
             <Grid container direction="column" alignItems="stretch">
                 <Grid>
@@ -77,6 +98,7 @@ export default function CreateContainer(props) {
                         id="outlined-multiline-static"
                         multiline
                         rows={5}
+                        onChange={e => setDescription(e.target.value)}
                         InputProps={{
                             classes: {
                                 input: classes.resize,
@@ -87,7 +109,7 @@ export default function CreateContainer(props) {
                     />
                 </Grid>
             </Grid>
-            <Grid direction="row">
+            <Grid>
                 <Grid>
                     <span className={classes.header2}>min/max range in km:</span>
                 </Grid>
@@ -99,6 +121,7 @@ export default function CreateContainer(props) {
                                 input: classes.resize,
                             },
                         }}
+                        onChange={e => setMinRange(e.target.value)}
                         className={classes.textField2}
                     />
                     <span className={classes.spaceLabel}>:</span>
@@ -110,11 +133,14 @@ export default function CreateContainer(props) {
                             },
                         }}
                         className={classes.textField2}
+                        onChange={e => setMaxRange(e.target.value)}
                     />
                 </Grid>
             </Grid>
             <Grid>
-                <Button className={classes.buttonStyle}>
+                <Button
+                    className={classes.buttonStyle}
+                    onClick={handleClick}>
                     <span className={classes.header}>
                         Activate Marker
                     </span>

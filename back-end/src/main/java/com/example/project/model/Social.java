@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.UUID;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +17,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "socials")
 public class Social {
-
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -26,6 +26,6 @@ public class Social {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "social_name", nullable = false)
-    private String socialName;
+    @Column(name = "social_name", nullable = false, length = 50)
+    private String name;
 }

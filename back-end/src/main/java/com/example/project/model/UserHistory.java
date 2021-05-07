@@ -29,7 +29,7 @@ public class UserHistory {
 
     @ManyToOne
     @JoinColumn(name = "beacon_id", updatable = false, nullable = false)
-    private Beacon beaconId;
+    private Marker markerId;
 
     @ManyToOne
     @JoinColumn(name = "user1_id", updatable = false, nullable = false)
