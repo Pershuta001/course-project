@@ -44,10 +44,15 @@ public class Beacon {
     )
     private String description;
 
-    @Column(name = "range",
+    @Column(name = "min_range",
             updatable = false,
             nullable = false)
-    private Float range;
+    private Float minRange;
+
+    @Column(name = "max_range",
+            updatable = false,
+            nullable = false)
+    private Float maxRange;
 
     @ManyToOne
     @JoinColumn(name = "user_id",

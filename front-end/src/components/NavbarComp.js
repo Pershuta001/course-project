@@ -9,7 +9,7 @@ import {ExitToApp, PinDrop} from "@material-ui/icons";
 import {
     signOut,
     selectUser
-} from '../../features/auth/Auth'
+} from '../features/auth/Auth'
 import {makeStyles} from "@material-ui/styles";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom"

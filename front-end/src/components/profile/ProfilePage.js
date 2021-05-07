@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from "./NavbarComp";
+import Navbar from "../NavbarComp";
 import {makeStyles} from "@material-ui/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
