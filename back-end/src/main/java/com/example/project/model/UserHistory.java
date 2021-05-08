@@ -28,22 +28,18 @@ public class UserHistory {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "beacon_id", updatable = false, nullable = false)
+    @JoinColumn(name = "marker_id", updatable = false, nullable = false)
     private Marker markerId;
 
     @ManyToOne
-    @JoinColumn(name = "user1_id", updatable = false, nullable = false)
-    private UserEntity userEntity1;
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "user2_id")
-    private UserEntity userEntity2;
-
-    @Column(name = "date", nullable = false)
+    @Column(name = "date")
     private Date date;
 
-    @Column(name = "label_description", nullable = false, length = 512)
-    private String labelDescription;
+    @Column(name = "answer", nullable = false, length = 512)
+    private String answer;
 
 
 

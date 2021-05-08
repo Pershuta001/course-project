@@ -21,9 +21,9 @@ public class TagConvertor {
 
     public List<Tag> convertToTags(List<String> tags) {
         List<Tag> res = new ArrayList<>();
-        for (String tag : tags ) {
+        for (String tag : tags) {
             res.add(tagRepository.findByName(tag));
         }
-        return res ;
+        return res;
     }
 }
