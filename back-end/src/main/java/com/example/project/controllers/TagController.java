@@ -5,6 +5,7 @@ import com.example.project.services.TagService;
 import com.example.project.view.TagView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class TagController {
 
     @ResponseBody
     @GetMapping("tags/all")
+    @PreAuthorize("hasAuthority('tag:read')")
     public ResponseEntity<List<String>> getAllTagsName(){
         return ResponseEntity
                 .ok()
@@ -24,6 +26,7 @@ public class TagController {
 
     @ResponseBody
     @PostMapping("tags/add")
+    @PreAuthorize("hasAuthority('tag:create')")
     public ResponseEntity<Tag> saveTag(
             @RequestBody TagView tagView
     ){
@@ -34,6 +37,7 @@ public class TagController {
 
     @ResponseBody
     @PostMapping("tags/delete")
+    @PreAuthorize("hasAuthority('tag:delete')")
     public ResponseEntity<Tag> deleteTag(
             @RequestBody TagView tagView
     ){

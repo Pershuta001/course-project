@@ -4,6 +4,7 @@ import com.example.project.services.UserService;
 import com.example.project.view.ChangePasswordView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,6 +15,7 @@ public class UserController {
 
     @ResponseBody
     @PutMapping("/profile/password/change")
+    @PreAuthorize("hasAuthority('profile:update')")
     public ResponseEntity<String> changePassword(
             @RequestBody ChangePasswordView changePasswordView
     ) {
@@ -24,6 +26,7 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/profile/social/add/{social}")
+    @PreAuthorize("hasAuthority('profile:update')")
     public ResponseEntity<String> addSocial(
             @PathVariable String social
     ) {
@@ -34,6 +37,7 @@ public class UserController {
 
     @ResponseBody
     @DeleteMapping("/profile/social/delete/{social}")
+    @PreAuthorize("hasAuthority('profile:update')")
     public ResponseEntity<String> deleteSocial(
             @PathVariable String social
     ) {
@@ -44,6 +48,7 @@ public class UserController {
 
     @ResponseBody
     @PutMapping("/profile/firstname/update/{firstname}")
+    @PreAuthorize("hasAuthority('profile:update')")
     public ResponseEntity<String> updateFirstname(
             @PathVariable String firstname
     ) {
@@ -54,6 +59,7 @@ public class UserController {
 
     @ResponseBody
     @PutMapping("/profile/lastname/update/{lastname}")
+    @PreAuthorize("hasAuthority('profile:update')")
     public ResponseEntity<String> updateLastname(
             @PathVariable String lastname
     ) {

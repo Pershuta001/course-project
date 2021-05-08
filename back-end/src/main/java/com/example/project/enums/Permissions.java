@@ -6,13 +6,13 @@ public enum Permissions {
     UPDATE_PROFILE("profile:update"),
     DELETE_PROFILE("profile:delete"),
 
-    UPDATE_BEACON("beacon:update"),
-    CREATE_BEACON("beacon:create"),
-    REPLY_FOR_BEACON("beacon:reply"),
-    DELETE_BEACON("beacon:delete"),
+    READ_MARKER("marker:read"),
+    CREATE_MARKER("marker:create"),
+    REPLY_FOR_MARKER("marker:reply"),
+    DELETE_MARKER("marker:delete"),
 
     CREATE_TAG("tag:create"),
-    UPDATE_TAG("tag:update"),
+    READ_TAG("tag:read"),
     DELETE_TAG("tag:delete"),
 
     USER_READ("user:read"),

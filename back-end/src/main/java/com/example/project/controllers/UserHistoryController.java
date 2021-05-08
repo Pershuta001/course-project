@@ -8,6 +8,7 @@ import com.example.project.view.ReplyResponseView;
 import com.example.project.view.SharedDataView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class UserHistoryController {
 
     @ResponseBody
     @PostMapping("/reply")
+    @PreAuthorize("hasAuthority('marker:reply')")
     public ResponseEntity<String> replyOnMarker(
             @RequestBody ReplyOnMarkerView replyOnMarkerView
     ) {
@@ -32,6 +34,7 @@ public class UserHistoryController {
 
     @ResponseBody
     @GetMapping("/my/replies/active")
+    @PreAuthorize("hasAuthority('marker:read')")
     public ResponseEntity<List<ReplyResponseView>> getActiveRepliesForCurrentUser() {
         return ResponseEntity
                 .ok()
@@ -42,6 +45,7 @@ public class UserHistoryController {
 
     @ResponseBody
     @GetMapping("/my/replies/all")
+    @PreAuthorize("hasAuthority('marker:read')")
     public ResponseEntity<List<ReplyResponseView>> getRepliesForCurrentUser() {
         return ResponseEntity
                 .ok()
@@ -52,6 +56,7 @@ public class UserHistoryController {
 
     @ResponseBody
     @GetMapping("/replies/data")
+    @PreAuthorize("hasAuthority('marker:read')")
     public ResponseEntity<List<SharedDataView>> getSharedData() {
         return ResponseEntity
                 .ok()
@@ -62,6 +67,7 @@ public class UserHistoryController {
 
     @ResponseBody
     @PostMapping("/reply/confirm")
+    @PreAuthorize("hasAuthority('marker:read')")
     public ResponseEntity<String> confirmReply(
             @RequestBody ConfirmReplyView confirmReplyView
     ) {
@@ -74,6 +80,7 @@ public class UserHistoryController {
 
     @ResponseBody
     @DeleteMapping("/reply/delete/{uuid}")
+    @PreAuthorize("hasAuthority('marker:delete')")
     public ResponseEntity<String> confirmReply(
             @PathVariable UUID uuid
     ) {

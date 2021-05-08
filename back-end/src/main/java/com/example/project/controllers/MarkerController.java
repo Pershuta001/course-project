@@ -6,6 +6,7 @@ import com.example.project.view.MarkerView;
 import com.example.project.view.SearchMarkersView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class MarkerController {
 
     @ResponseBody
     @PostMapping("/markers/create")
+    @PreAuthorize("hasAuthority('marker:create')")
     public ResponseEntity<String> createMarker(
             @RequestBody MarkerView marker
     ) {
@@ -29,6 +31,7 @@ public class MarkerController {
 
     @ResponseBody
     @GetMapping("/markers/search")
+    @PreAuthorize("hasAuthority('marker:reply')")
     public ResponseEntity<List<MarkerView>> findMarkers(
             @RequestParam List<String> tags,
             @RequestParam String lat,
@@ -49,6 +52,7 @@ public class MarkerController {
 
     @ResponseBody
     @GetMapping("/markers/my")
+    @PreAuthorize("hasAuthority('marker:reply')")
     public ResponseEntity<List<MarkerView>> findMarkersForUser() {
         return ResponseEntity
                 .ok()
@@ -57,6 +61,7 @@ public class MarkerController {
 
     @ResponseBody
     @DeleteMapping("/markers/delete/{uuid}")
+    @PreAuthorize("hasAuthority('marker:delete')")
     public ResponseEntity<String> deleteMarker(
             @PathVariable UUID uuid
             ) {
