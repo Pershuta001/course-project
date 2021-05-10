@@ -7,10 +7,8 @@ import {makeStyles} from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import {useSelector} from "react-redux";
 import {selectUser} from "../../features/auth/Auth";
-import ScrollArea from 'react-scrollbar';
 import Social from "./SocialComp";
 import ChangePassword from "./ChangePassword";
-import {validatePhone} from "../utils/Validation";
 import Api from "../../api/Api";
 
 const useStyles = makeStyles(() => ({

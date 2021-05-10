@@ -7,9 +7,6 @@ import {
     validatePassword,
     validatePasswordRep
 } from "../utils/Validation";
-import axios from "axios";
-import {useSelector} from "react-redux";
-import {selectStatus} from "../../features/auth/Auth";
 import Api from "../../api/Api";
 
 const useStyles = makeStyles(() => ({
@@ -46,8 +43,6 @@ export default function ChangePassword(props) {
     const [validNewPassRep, setValidNewPassRep] = useState(true);
 
     const classes = useStyles();
-
-    const auth = useSelector(selectStatus);
 
     function validateFields() {
 

@@ -1,9 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import {TileLayer, Marker, Popup, MapContainer, useMapEvents} from 'react-leaflet';
-import {LatLng} from "leaflet/dist/leaflet-src.esm";
 
 const useStyles = makeStyles({
 

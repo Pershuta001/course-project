@@ -1,13 +1,9 @@
 import React from 'react';
 import Navbar from "../NavbarComp";
 import {makeStyles} from "@material-ui/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import Typography from "@material-ui/core/Typography";
 import ProfileComp from "./ProfileComp";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         flexGrow: 1,
     },

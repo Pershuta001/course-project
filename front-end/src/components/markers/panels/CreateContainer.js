@@ -62,12 +62,11 @@ export default function CreateContainer(props) {
 
     const classes = useStyles();
 
-    const [activeTags, setActiveTags] = useState('');
     const [description, setDescription] = useState('');
     const [minRange, setMinRange] = useState(0);
     const [maxRange, setMaxRange] = useState(20);
 
-    function handleClick(tags) {
+    function handleClick() {
         const response = {
             activeTags: tagsAct,
             description: description,

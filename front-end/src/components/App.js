@@ -5,7 +5,6 @@ import {
     Route,
     Switch,
     Redirect,
-    withRouter
 } from "react-router-dom"
 import '../styles/App.css';
 import './SignInUpPage'

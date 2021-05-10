@@ -5,7 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import {makeStyles} from "@material-ui/styles";
 import ActivePanel from "./ActivePanel";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     toolbar: {
         height: "30px"
     },

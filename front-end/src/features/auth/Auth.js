@@ -12,7 +12,6 @@ const initialState = {
 // Thunk prefixes
 const SIGN_IN_USER = 'auth/signInUser';
 const SIGN_UP_USER = 'auth/signUpUser';
-const UPDATE_USER = 'auth/updateUser';
 
 // Thunks
 export const signInUser = createAsyncThunk(
@@ -28,14 +27,6 @@ export const signUpUser = createAsyncThunk(
     async userData => {
         const response = await API.post('/sign-up', userData);
         return {user: response.data, token: response.headers.authorization};
-    }
-)
-
-export const updateUser = createAsyncThunk(
-    UPDATE_USER,
-    async userData => {
-        const response = await API.put('/update-user', userData);
-        return {user: response.data};
     }
 )
 
@@ -70,17 +61,6 @@ const authSlice = createSlice({
             saveToken(action.payload.token);
         },
         [signUpUser.rejected]: (state, action) => {
-            state.status = 'failed';
-            console.log(action.error);
-        },
-        [updateUser.pending]: (state) => {
-            state.status = 'loading';
-        },
-        [updateUser.fulfilled]: (state, action) => {
-            state.status = 'succeeded';
-            saveUser(state, action);
-        },
-        [updateUser.rejected]: (state, action) => {
             state.status = 'failed';
             console.log(action.error);
         }

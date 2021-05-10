@@ -234,7 +234,7 @@ function SignInUpPage() {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label="Password again"
                         type="password"
                         id="passwordRep"
                         autoComplete="current-password"

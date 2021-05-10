@@ -60,8 +60,6 @@ let tagsAct = '';
 export default function SearchContainer(props) {
 
     const classes = useStyles();
-
-    const [activeTags, setActiveTags] = useState([]);
     const [minRange, setMinRange] = useState(0);
     const [maxRange, setMaxRange] = useState(20);
 
@@ -71,10 +69,12 @@ export default function SearchContainer(props) {
             minRange: minRange,
             maxRange: maxRange
         };
+
         props.responseData(JSON.stringify(response));
     }
 
     function handleActiveTabs(tags) {
+        console.log('active tags:' + tags);
         tagsAct = tags;
 
     }
@@ -87,7 +87,7 @@ export default function SearchContainer(props) {
             <Grid>
                 <TagsComp tags={props.tags} activeTags={handleActiveTabs}/>
             </Grid>
-            <Grid >
+            <Grid>
                 <Grid>
                     <span className={classes.header2}>min/max range in km:</span>
                 </Grid>

@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import {makeStyles} from "@material-ui/styles";
-import ScrollArea from "react-scrollbar";
 import Grid from "@material-ui/core/Grid";
-import {Button, ButtonBase, Typography} from "@material-ui/core";
-import Api from "../../../api/Api";
+import {Button} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import {useSelector} from "react-redux";
 import {selectUser} from "../../../features/auth/Auth";
@@ -110,8 +108,8 @@ export default function FullReplyComp(props) {
 
     const user = useSelector(selectUser)
     const classes = useStyles();
-    const [markers, setMarkers] = useState(props.replies);
-    const [listItems, setListItems] = useState(markers.map((reply, index) => replyComp(index, reply)));
+    const [markers] = useState(props.replies);
+    const [listItems] = useState(markers.map((reply, index) => replyComp(index, reply)));
 
     return (
         <div>

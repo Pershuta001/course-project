@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
 import {makeStyles} from "@material-ui/styles";
-import ScrollArea from "react-scrollbar";
 import Grid from "@material-ui/core/Grid";
-import {Button, ButtonBase, Typography} from "@material-ui/core";
-import Api from "../../../api/Api";
+import {Button} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import {useSelector} from "react-redux";
 import {selectUser} from "../../../features/auth/Auth";
 import DeleteIcon from '@material-ui/icons/Delete';
-import ShareIcon from '@material-ui/icons/Share';
 
 const useStyles = makeStyles(() => ({
     row: {
@@ -83,8 +80,8 @@ export default function SharedComp(props) {
 
     const user = useSelector(selectUser)
     const classes = useStyles();
-    const [contacts, setContacts] = useState(props.contacts);
-    const [listItems, setListItems] = useState(contacts.map((contact) => contactComp(contact)));
+    const [contacts] = useState(props.contacts);
+    const [listItems] = useState(contacts.map((contact) => contactComp(contact)));
 
     return (
         <div>
