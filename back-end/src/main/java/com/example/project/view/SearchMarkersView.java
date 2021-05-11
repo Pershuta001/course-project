@@ -14,7 +14,6 @@ import java.util.List;
 public class SearchMarkersView {
 
     private List<String> tags;
-    private String minRange;
-    private String maxRange;
-    private Coords coords;
+    private Double minPrice;
+    private Double maxPrice;
 }

@@ -7,10 +7,12 @@ import Api from "../../api/Api";
 
 let currCoord = {};
 
+
 export default function Markers() {
 
     const [currentMarker, setCurrentMarker] = useState([]);
     const [tags] = useState([]);
+    const [markers, setMarkers] = useState([]);
 
     const handleCallback = (coords) => {
         setCurrentMarker(coords);
@@ -30,13 +32,19 @@ export default function Markers() {
 
     function doCreateRequest(data) {
         const dataObj = JSON.parse(data);
-        Api.post('/markers/create', {
-            tags: dataObj.activeTags,
-            min: dataObj.minRange,
-            max: dataObj.maxRange,
+        const coords = {
+            lat: currCoord[0].lat,
+            lng: currCoord[0].lng
+        }
+        const paramsBody = {
+            tags: JSON.parse(dataObj.activeTags),
+            minRange: dataObj.minRange,
+            maxRange: dataObj.maxRange,
             description: dataObj.description,
-            coords: currCoord
-        })
+            coords: coords
+        }
+        console.log(paramsBody);
+        Api.post('/markers/create', paramsBody)
             .then(originalPromiseResult => {
                 console.log(originalPromiseResult)
 
@@ -62,8 +70,10 @@ export default function Markers() {
              params: params
          })
              .then(originalPromiseResult => {
-                 console.log(originalPromiseResult)
-                 // showSnack("success", "You successfully signed up !");
+
+                 console.log(originalPromiseResult);
+                 setMarkers(originalPromiseResult.data)
+
              })
              .catch(rejectedValueOrSerializedError => {
                  // showSnack("error", "Wrong password or something :/");
@@ -78,7 +88,11 @@ export default function Markers() {
             <Navbar/>
             <Grid container>
                 <CriteriaContainer responseData={handleContainerCallback} tags={tags}/>
-                <MapComp currentCoords={handleCallback} coords={currentMarker}/>
+                <MapComp
+                    currentCoords={handleCallback}
+                    coords={currentMarker}
+                    markers = {markers}
+                />
             </Grid>
         </div>)
 }

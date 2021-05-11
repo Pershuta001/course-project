@@ -1,9 +1,10 @@
 import React from 'react';
 import ReplyComp from "./ReplyComp";
 
-function ActiveReplies() {
+function ActiveReplies(props) {
 
-    const replies = [{
+   // const replies =  ;
+        /*[{
         id: 1,
         description: "new description ifjosdijf sdjfoisjf sdfjoisdjfos sodifjos jf idfj soidfjodsi osdfosijd soidfjosij sdfoi",
         tags: ["Work", "cheel", "100$"],
@@ -18,9 +19,9 @@ function ActiveReplies() {
             userAnswer: "Ok, bro",
             userName: "Petro Petrovich",
             userIcon: []
-        }]
+        }]*/
     return (
-        <ReplyComp replies={replies}/>
+        <ReplyComp replies={props.data}/>
     )
 }
 

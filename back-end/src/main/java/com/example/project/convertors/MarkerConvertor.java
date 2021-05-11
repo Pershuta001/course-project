@@ -23,10 +23,10 @@ public class MarkerConvertor {
         return MarkerView
                 .builder()
                 .uuid(marker.getId())
-                .coords(new Coords(marker.getXCoordinate().toString(), marker.getYCoordinate().toString()))
+                .coords(new Coords(marker.getLat().toString(), marker.getLng().toString()))
                 .description(marker.getDescription())
-                .maxRange(marker.getMaxRange().toString())
-                .minRange(marker.getMinRange().toString())
+                .maxPrice(marker.getMaxPrice())
+                .minPrice(marker.getMinPrice())
                 .tags(tagConvertor.convert(marker.getTags()))
                 .build();
     }

@@ -24,9 +24,32 @@ public class MarkerController {
     public ResponseEntity<String> createMarker(
             @RequestBody MarkerView marker
     ) {
+        System.err.println(marker);
         return ResponseEntity
                 .ok()
                 .body(markerService.createMarker(marker));
+    }
+
+    @ResponseBody
+    @GetMapping("/markers/search/bounds")
+    @PreAuthorize("hasAuthority('marker:reply')")
+    public ResponseEntity<List<MarkerView>> findMarkers(
+            @RequestParam List<String> tags,
+            @RequestParam Double minPrice,
+            @RequestParam Double maxPrice,
+            @RequestParam Double northWestLat,
+            @RequestParam Double northWestLng,
+            @RequestParam Double southEastLat,
+            @RequestParam Double southEastLng
+    ) {
+        return ResponseEntity
+                .ok()
+                .body(markerService.findMarkers(SearchMarkersView
+                        .builder()
+                        .minPrice(minPrice)
+                        .maxPrice(maxPrice)
+                        .tags(tags)
+                        .build(), northWestLat, northWestLng, southEastLat, southEastLng));
     }
 
     @ResponseBody
@@ -34,18 +57,15 @@ public class MarkerController {
     @PreAuthorize("hasAuthority('marker:reply')")
     public ResponseEntity<List<MarkerView>> findMarkers(
             @RequestParam List<String> tags,
-            @RequestParam String lat,
-            @RequestParam String lng,
-            @RequestParam String minRange,
-            @RequestParam String maxRange
+            @RequestParam Double minPrice,
+            @RequestParam Double maxPrice
     ) {
         return ResponseEntity
                 .ok()
                 .body(markerService.findMarkers(SearchMarkersView
                         .builder()
-                        .coords(Coords.builder().lat(lat).lng(lng).build())
-                        .maxRange(maxRange)
-                        .minRange(minRange)
+                        .maxPrice(minPrice)
+                        .maxPrice(maxPrice)
                         .tags(tags)
                         .build()));
     }
@@ -64,7 +84,7 @@ public class MarkerController {
     @PreAuthorize("hasAuthority('marker:delete')")
     public ResponseEntity<String> deleteMarker(
             @PathVariable UUID uuid
-            ) {
+    ) {
         return ResponseEntity
                 .ok()
                 .body(markerService.deleteMarker(uuid));

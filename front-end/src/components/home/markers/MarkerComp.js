@@ -33,8 +33,8 @@ const useStyles = makeStyles(() => ({
         color: "#4CBBA0",
         fontSize: "25px"
     },
-    gridWidth:{
-        width:"50px"
+    gridWidth: {
+        width: "50px"
     },
     largeIcon: {
         width: "50px",
@@ -45,17 +45,17 @@ const useStyles = makeStyles(() => ({
 
 export default function MarkerComp(props) {
 
-    function markerComp (index, marker) {
-      return( <Grid key={index} item xs={12} sm container  className={classes.row}>
+    function markerComp(index, marker) {
+        console.log(marker)
+        return (<Grid key={index} item xs={12} sm container className={classes.row}>
             <Grid>
                 <Avatar
-                    className={classes.large}
-                    rounded>
+                    className={classes.large}>
                     <span className={classes.label}>{user.name.charAt(0)}</span>
                 </Avatar>
             </Grid>
             <Grid item xs={7} container direction="column" spacing={2} zeroMinWidth>
-                <Grid item xs >
+                <Grid item xs>
                  <span className={classes.textStyle}>
                     {marker.tags.join(', ')}
                  </span>
@@ -83,14 +83,14 @@ export default function MarkerComp(props) {
                 </Grid>
                 <Grid item xs sm>
                       <span className={classes.subtextStyle}>
-                          {marker.xCoordinate}
+                          {marker.coords.lat}
                     </span>
                     <span className={classes.subtextStyle}>
-                          {marker.yCoordinate}
+                          {marker.coords.lng}
                     </span>
                 </Grid>
             </Grid>
-            <Grid container justify = "center"
+            <Grid container justify="center"
                   className={classes.gridWidth}>
                 <Button>
                     <DeleteIcon className={classes.largeIcon} color={"action"}/>
@@ -102,8 +102,7 @@ export default function MarkerComp(props) {
 
     const user = useSelector(selectUser)
     const classes = useStyles();
-    const [markers] = useState(props.markers);
-    const [listItems] = useState(markers.map((marker, index) => markerComp(index, marker)));
+    const [listItems] = useState(props.markers.map((marker, index) => markerComp(index, marker)));
 
     return (
         <div>

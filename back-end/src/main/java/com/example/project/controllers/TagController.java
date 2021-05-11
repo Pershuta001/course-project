@@ -17,7 +17,6 @@ public class TagController {
 
     @ResponseBody
     @GetMapping("tags/all")
-    @PreAuthorize("hasAuthority('tag:read')")
     public ResponseEntity<List<String>> getAllTagsName(){
         return ResponseEntity
                 .ok()

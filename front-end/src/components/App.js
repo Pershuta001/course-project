@@ -24,8 +24,8 @@ function App() {
         <BrowserRouter>
             <Switch>
                 <Route exact path='/signin' component={SignInUpPage}/>
-                <Route exact path='/home' component={Home}/>
-                <Route exact path='/markers' component={Markers}/>
+                <Route exact path='/home' component={Markers}/>
+                <Route exact path='/markers' component={Home}/>
                 <Route exact path='/profile' component={Profile}/>
                 <Redirect from='/' to='/signin'/>
             </Switch>

@@ -41,7 +41,7 @@ public class UserHistoryService {
 
     @Transactional
     public List<UserHistory> getActiveRepliesForCurrentUser() {
-        return userHistoryRepository.findByMarkerId_UserEntityIdAndDateIsNull(currentUser());
+        return userHistoryRepository.findByDateIsNullAndMarkerId_UserEntityId(currentUser());
     }
 
     @Transactional

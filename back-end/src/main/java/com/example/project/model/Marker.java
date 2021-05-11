@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "beacons")
+@Table(name = "markers")
 public class Marker {
 
     @Id
@@ -27,15 +27,15 @@ public class Marker {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "x_coordinate",
+    @Column(name = "lat",
             updatable = false,
             nullable = false)
-    private Double xCoordinate;
+    private Double lat;
 
-    @Column(name = "y_coordinate",
+    @Column(name = "lng",
             updatable = false,
             nullable = false)
-    private Double yCoordinate;
+    private Double lng;
 
     @Column(name = "description",
             updatable = false,
@@ -44,15 +44,11 @@ public class Marker {
     )
     private String description;
 
-    @Column(name = "min_range",
-            updatable = false,
-            nullable = false)
-    private Float minRange;
+    @Column(name = "min_price")
+    private Double minPrice;
 
-    @Column(name = "max_range",
-            updatable = false,
-            nullable = false)
-    private Float maxRange;
+    @Column(name = "max_price")
+    private Double maxPrice;
 
     @ManyToOne
     @JoinColumn(name = "user_id",

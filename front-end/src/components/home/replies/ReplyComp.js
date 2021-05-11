@@ -34,8 +34,8 @@ const useStyles = makeStyles(() => ({
         color: "#4CBBA0",
         fontSize: "25px"
     },
-    gridWidth:{
-        width:"50px"
+    gridWidth: {
+        width: "50px"
     },
     largeIcon: {
         width: "50px",
@@ -46,48 +46,46 @@ const useStyles = makeStyles(() => ({
 
 export default function ReplyComp(props) {
 
-    function replyComp (index, reply) {
-        return( <Grid key={index} item xs={12} sm container  className={classes.row} spacing={2}>
+    function replyComp(index, reply) {
+        return (<Grid key={index} item xs={12} sm container className={classes.row} spacing={2}>
             <Grid>
                 <Avatar
-                    className={classes.large}
-                    rounded>
+                    className={classes.large}>
                     <span className={classes.label}>{user.name.charAt(0)}</span>
                 </Avatar>
             </Grid>
             <Grid item xs={5} container direction="column" spacing={2} zeroMinWidth>
-                <Grid item xs >
+                <Grid item xs>
                  <span className={classes.textStyle}>
-                    {reply.tags.join(', ')}
+                    {reply.marker.tags.join(', ')}
                  </span>
                 </Grid>
                 <Grid item xs>
                  <span className={classes.subtextStyle}>
-                    {reply.description}
+                    {reply.marker.description}
                  </span>
                 </Grid>
             </Grid>
-            <Grid item xs={5} container direction="column" spacing={2} >
+            <Grid item xs={5} container direction="column" spacing={2}>
                 <Grid container justify="flex-end">
                  <span className={classes.textStyle}>
-                    {reply.userName}
+                    {reply.userFirstname + ' ' + reply.userLastname}
                  </span>
                 </Grid>
                 <Grid container justify="flex-end">
                  <span className={classes.subtextStyle}>
-                    {reply.userAnswer}
+                    {reply.answer}
                  </span>
                 </Grid>
             </Grid>
             <Grid>
                 <Avatar
-                    className={classes.large}
-                    rounded>
-                    <span className={classes.label}>{reply.userName.charAt(0)}</span>
+                    className={classes.large}>
+                    <span className={classes.label}>{reply.userFirstname.charAt(0)}</span>
                 </Avatar>
             </Grid>
             <Grid className={classes.gridWidth}>
-                <Button className={classes.largeIcon} >
+                <Button className={classes.largeIcon}>
                     <ShareIcon/>
                 </Button>
                 <Button className={classes.largeIcon}>
@@ -100,8 +98,7 @@ export default function ReplyComp(props) {
 
     const user = useSelector(selectUser)
     const classes = useStyles();
-    const [markers] = useState(props.replies);
-    const [listItems] = useState(markers.map((reply, index) => replyComp(index, reply)));
+    const [listItems] = useState(props.replies.map((reply, index) => replyComp(index, reply)));
 
     return (
         <div>

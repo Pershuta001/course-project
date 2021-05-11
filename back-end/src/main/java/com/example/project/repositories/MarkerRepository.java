@@ -12,7 +12,10 @@ public interface MarkerRepository extends JpaRepository<Marker, UUID> {
 
 
     List<Marker> findByUserEntityId(UserEntity userEntity);
+
     List<Marker> findMarkerByUserEntityIdNot(UserEntity userEntity);
+
+    List<Marker> findMarkerByUserEntityIdNotAndLatBetweenAndLngBetweenAndMinPriceGreaterThanEqualAndMaxPriceLessThanEqual(UserEntity userEntity, double a1, double a2, double a3, double a4, double a5, double a6);
 
     void deleteById(UUID uuid);
 }

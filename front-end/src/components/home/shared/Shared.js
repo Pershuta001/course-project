@@ -1,17 +1,18 @@
 import React from 'react';
 import SharedComp from "./SharedComp";
 
-function Shared() {
+function Shared(props) {
 
-    const contacts = [{
+   // const contacts = props.data == null? []: ;
+   /*     [{
         id:1,
         username: "Ivan Petrovich",
         userLogo: "",
         socials:["instagram", "telegram","faceboook"]
-    }];
+    }];*/
     return (
         <div className="home">
-            <SharedComp contacts = {contacts}/>
+            <SharedComp contacts = {props.data} />
         </div>)
 }
 

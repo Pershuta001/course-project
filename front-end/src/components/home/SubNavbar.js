@@ -4,6 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import {makeStyles} from "@material-ui/styles";
 import ActivePanel from "./ActivePanel";
+import Api from "../../api/Api";
 
 const useStyles = makeStyles(() => ({
     toolbar: {
@@ -15,16 +16,48 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const SubNavbar = () => {
+function SubNavbar() {
 
     const classes = useStyles();
 
     const [activeView, setActiveView] = useState("markers");
-
+    const [data, setData] = useState([]);
 
     function changeView(view) {
-        setActiveView(view)
+        setActiveView(view);
+        getData(view);
     }
+
+    function getData(view) {
+        setData([]);
+        switch (view) {
+            case "markers":
+                getDataFromServer('/markers/my');
+                break;
+            case "shared":
+                getDataFromServer('/replies/data')
+                break;
+            case "active":
+                getDataFromServer('/my/replies/active');
+                break;
+            case "all":
+                getDataFromServer('/my/replies/all');
+                break;
+        }
+    }
+
+    function getDataFromServer(path) {
+        Api.get(path)
+            .then(originalPromiseResult => {
+                setData(originalPromiseResult.data);
+            })
+            .catch(rejectedValueOrSerializedError => {
+                // showSnack("error", "Wrong password or something :/");
+                console.log(rejectedValueOrSerializedError)
+            })
+
+    }
+
 
     return (
         <AppBar position="static" className={classes.background}>
@@ -48,7 +81,7 @@ const SubNavbar = () => {
                     <span>Shared</span>
                 </Button>
             </Toolbar>
-            <ActivePanel view={activeView}/>
+            <ActivePanel view={activeView} data={data}/>
         </AppBar>
 
     )

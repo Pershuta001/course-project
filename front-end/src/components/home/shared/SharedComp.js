@@ -33,8 +33,8 @@ const useStyles = makeStyles(() => ({
         color: "#4CBBA0",
         fontSize: "25px"
     },
-    gridWidth:{
-        width:"50px"
+    gridWidth: {
+        width: "50px"
     },
     largeIcon: {
         width: "100px",
@@ -45,26 +45,27 @@ const useStyles = makeStyles(() => ({
 
 export default function SharedComp(props) {
 
-    function contactComp (contact) {
-        return( <Grid key={contact.id} item xs={12} sm container  className={classes.row} spacing={2}>
+    function contactComp(contact) {
+        console.log(contact);
+        return (<Grid key={contact.id} item xs={12} sm container className={classes.row} spacing={2}>
             <Grid>
                 <Avatar
                     className={classes.large}
                     rounded>
-                    <span className={classes.label}>{user.name.charAt(0)}</span>
+                    <span className={classes.label}>{contact.userFirstname.charAt(0)}</span>
                 </Avatar>
             </Grid>
             <Grid item xs={5} container direction="column" spacing={2} zeroMinWidth>
-                <Grid item xs >
+                <Grid item xs>
                  <span className={classes.textStyle}>
-                    {contact.username}
+                    {contact.userFirstname + ' ' + contact.userLastname}
                  </span>
                 </Grid>
                 <Grid item xs>
                  <span className={classes.subtextStyle}>
                     Socials:
                  </span>
-                 <span className={classes.subtextStyle}>
+                    <span className={classes.subtextStyle}>
                     {contact.socials.join(', ')}
                  </span>
                 </Grid>

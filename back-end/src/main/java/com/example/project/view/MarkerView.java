@@ -17,8 +17,8 @@ public class MarkerView {
     private UUID uuid;
     private List<String> tags;
     private String description;
-    private String minRange;
-    private String maxRange;
+    private Double minPrice;
+    private Double maxPrice;
     private Coords coords;
 
 }

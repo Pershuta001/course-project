@@ -47,55 +47,53 @@ const useStyles = makeStyles(() => ({
 export default function FullReplyComp(props) {
 
     function replyComp(index, reply) {
-        return (<Grid key={index} item xs container  className={classes.row} spacing={2}>
+        return (<Grid key={index} item xs container className={classes.row} spacing={2}>
             <Grid>
                 <Avatar
-                    className={classes.large}
-                    rounded>
+                    className={classes.large}>
                     <span className={classes.label}>{user.name.charAt(0)}</span>
                 </Avatar>
             </Grid>
             <Grid item xs container direction="column" spacing={2} zeroMinWidth>
-                <Grid item xs >
+                <Grid item xs>
                  <span className={classes.textStyle}>
-                    {reply.tags.join(', ')}
+                    {reply.marker.tags.join(', ')}
                  </span>
                 </Grid>
                 <Grid item xs>
                  <span className={classes.subtextStyle}>
-                    {reply.description}
+                    {reply.marker.description}
                  </span>
                 </Grid>
                 <Grid item xs>
                  <span className={classes.subtextStyle}>
                     Date: {reply.date}
                  </span>
-                 <span className={classes.subtextStyle}>
-                    Coordinates: [{reply.xCoordinate}, {reply.yCoordinate}]
+                    <span className={classes.subtextStyle}>
+                    Coordinates: [{reply.marker.coords.lat}, {reply.marker.coords.lng}]
                  </span>
                 </Grid>
             </Grid>
-            <Grid item xs container direction="column" spacing={2} >
+            <Grid item xs container direction="column" spacing={2}>
                 <Grid container justify="flex-end">
                  <span className={classes.textStyle}>
-                    {reply.userName}
+                    {reply.userFirstname + ' ' + reply.userLastname}
                  </span>
                 </Grid>
                 <Grid container justify="flex-end">
                  <span className={classes.subtextStyle}>
-                    {reply.userAnswer}
+                    {reply.answer}
                  </span>
                 </Grid>
             </Grid>
             <Grid>
                 <Avatar
-                    className={classes.large}
-                    rounded>
-                    <span className={classes.label}>{reply.userName.charAt(0)}</span>
+                    className={classes.large}>
+                    <span className={classes.label}>{reply.userFirstname.charAt(0)}</span>
                 </Avatar>
             </Grid>
             <Grid className={classes.gridWidth}>
-                <Button className={classes.largeIcon} >
+                <Button className={classes.largeIcon}>
                     <ShareIcon/>
                 </Button>
                 <Button className={classes.largeIcon}>

@@ -4,27 +4,34 @@ import ActiveReplies from "./replies/ActiveReplies";
 import AllReplies from "./all/AllReplies";
 import Shared from "./shared/Shared";
 
-class ActivePanel extends React.Component {
+export default function ActivePanel(props) {
 
-    render() {
+
+    function ChooseElem() {
         let elem;
-        switch (this.props.view){
+        const data = props.data == null ? [] : props.data;
+        switch (props.view) {
             case "markers":
-                elem = <HomeMarkers/>;
+                elem = <HomeMarkers data={data}/>;
                 break;
             case "active":
-                elem = <ActiveReplies/>;
+                elem = <ActiveReplies data={data}/>;
                 break;
             case "all":
-                elem = <AllReplies/>;
+                elem = <AllReplies data={data}/>;
                 break;
             case "shared":
-                elem = <Shared/>;
+                elem = <Shared data={data}/>;
                 break;
             default:
-                elem = <HomeMarkers/>;
+                elem = <HomeMarkers data={data}/>;
+                break;
         }
+
         return elem;
+
     }
-}
-export default ActivePanel;
+
+    return <ChooseElem/>;
+
+};

@@ -61,7 +61,6 @@ export default function Tags(props) {
 
     const tagList = tags.map((tag) => renderTag(tag));
 
-
     function renderTag(tag) {
         return (
             <FormControlLabel key={tag}
@@ -72,14 +71,12 @@ export default function Tags(props) {
                                                  className={classes.checkbox}/>
                               }
                               className={classes.text}
-
                               label={tag}
             />);
     }
 
     const handleChange = (tag) => {
         checked.set(tag, !checked.get(tag))
-        console.log(checked);
         const active = activeTags();
         props.activeTags(JSON.stringify(active));
     };
