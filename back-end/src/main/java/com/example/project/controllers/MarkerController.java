@@ -80,6 +80,18 @@ public class MarkerController {
     }
 
     @ResponseBody
+    @GetMapping("/markers/my/{uuid}")
+    @PreAuthorize("hasAuthority('marker:reply')")
+    public ResponseEntity<List<MarkerView>> findMarkersForUserById(
+            @PathVariable UUID uuid
+    ) {
+        return ResponseEntity
+                .ok()
+                .body(markerService.findMarkersForUserById(uuid));
+    }
+
+
+    @ResponseBody
     @DeleteMapping("/markers/delete/{uuid}")
     @PreAuthorize("hasAuthority('marker:delete')")
     public ResponseEntity<String> deleteMarker(

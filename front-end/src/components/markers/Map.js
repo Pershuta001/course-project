@@ -8,6 +8,7 @@ import {TextFields} from "@material-ui/icons";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Api from "../../api/Api";
+import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles({
 
@@ -30,6 +31,7 @@ function getIcon(_iconSize) {
     })
 }
 
+
 export default function MapComp(props) {
     const classes = useStyles();
     const position = [50.483975, 30.532205];
@@ -41,6 +43,27 @@ export default function MapComp(props) {
             leafletRef.current.openPopup();
         }, [])
         return <Marker ref={leafletRef} {...props} />
+    }
+
+    function YourComponent() {
+        const map = useMap();
+        const [bounds, setMyBounds] = React.useState({});
+
+        React.useEffect(() => {
+            const eventHandler = event => {
+                props.bounds(event.target.getBounds());
+            }
+            map.on("moveend", eventHandler);
+
+            return () => {
+                map.off("moveend", eventHandler); // Remove event handler to avoid creating multiple handlers
+            }
+        }, []);
+
+        return (
+            // Use bounds for whatever you need
+            <div>Lat: {bounds.lat}; long: {bounds.lng}</div>
+        )
     }
 
     function MarkerMyPopup(props) {
@@ -65,12 +88,29 @@ export default function MapComp(props) {
                       icon={getIcon(50)}>
                 <Popup className={classes.popup}>
                     <Grid>
+                        <Grid container direction="row">
+                            <Grid>
+                                <Avatar
+                                    className={classes.large}>
+                                    <span className={classes.label}>{props.data.userView.userFirstname.charAt(0)}</span>
+                                </Avatar>
+                            </Grid>
+                            <Grid container direction="column">
+                                <Grid> <span
+                                    className={classes.label}>{props.data.userView.userFirstname + ' ' + props.data.userView.userLastname}</span>
+                                </Grid>
+                                <Grid> <span
+                                    className={classes.label}>{'rating: ' + props.data.userView.rating}</span> </Grid>
+                                <Grid>   <span
+                                    className={classes.label}>{'karma: ' + props.data.userView.karma}</span> </Grid>
+                                <Grid>   <span
+                                    className={classes.label}>{'price range: ' + props.data.minPrice + '-' + props.data.maxPrice}</span>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                         <Grid>
                             <Typography>
-                                Благодаря специальным ручкам, оснащенным небольшим упором для
-                                мизинца, Professional Hairdressing Scissors рабочий процесс будет комфортным и
-                                не вызовет
-                                чувства усталости.
+                                {props.data.description}
                             </Typography>
                         </Grid>
                         <Grid
@@ -124,24 +164,18 @@ export default function MapComp(props) {
         )
     }
 
-
-    function getBounds(e) {
-        console.log('bounds' + e.target.value);
-    }
-
     return (
         <MapContainer
             className={classes.mapContainer}
             center={position}
-            zoom={13}
-            boundsOptions={e => getBounds(e)}>
+            zoom={13}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
             <MyComponent/>
-
             <Markers/>
+            <YourComponent/>
         </MapContainer>
 
     );

@@ -64,6 +64,32 @@ public class UserHistoryService {
 
     @SneakyThrows
     @Transactional
+    public String confirmAsMaintainer(UUID uuid) {
+        UserHistory userHistory = userHistoryRepository.getOne(uuid);
+        UserEntity user = currentUser();
+        if(!userHistory.getMarkerId().getUserEntityId().equals(user)){
+            throw new Exception("You have no permission to confirm reply as a maintainer");
+        }
+        userHistory.setConfirmedByMaintainer(true);
+        userHistoryRepository.save(userHistory);
+        return "success";
+    }
+
+    @SneakyThrows
+    @Transactional
+    public String confirmAsReplier(UUID uuid) {
+        UserHistory userHistory = userHistoryRepository.getOne(uuid);
+        UserEntity user = currentUser();
+        if(!userHistory.getUserEntity().equals(user)){
+            throw new Exception("You have no permission to confirm reply");
+        }
+        userHistory.setConfirmedByReplier(true);
+        userHistoryRepository.save(userHistory);
+        return "success";
+    }
+
+    @SneakyThrows
+    @Transactional
     public String deleteReply(UUID replyId) {
         Optional<UserHistory> userHistory = userHistoryRepository.findById(replyId);
         if (userHistory.isEmpty()) {
@@ -80,4 +106,8 @@ public class UserHistoryService {
         return userRepository.findUserByLogin(login).get();
     }
 
+
+    public List<UserHistory> getMyReplies() {
+        return userHistoryRepository.findByUserEntity(currentUser());
+    }
 }

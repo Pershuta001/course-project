@@ -27,7 +27,7 @@ public class UserEntity {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "login",updatable = false, nullable = false, unique = true)
+    @Column(name = "login", updatable = false, nullable = false, unique = true)
     private String login;
 
     @Column(name = "hashed_password", nullable = false)
@@ -50,6 +50,15 @@ public class UserEntity {
 
     @Column(name = "role", nullable = false)
     private Integer role;
+
+    @Column(name = "rating", nullable = false)
+    private Double rating;
+
+    @Column(name = "karma", nullable = false)
+    private Double karma;
+
+    @Column(name = "share", nullable = false)
+    private Boolean shareMyData;
 
     @OneToMany
     private List<Social> socials;

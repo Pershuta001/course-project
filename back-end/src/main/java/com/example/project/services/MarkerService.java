@@ -60,7 +60,6 @@ public class MarkerService {
                                         Double northWestLng,
                                         Double southEastLat,
                                         Double southEastLng) {
-        System.out.println(searchMarkersView);
         return markerConvertor.convert(
                 markerRepository.findMarkerByUserEntityIdNotAndLatBetweenAndLngBetweenAndMinPriceGreaterThanEqualAndMaxPriceLessThanEqual(
                         currentUser(),
@@ -79,6 +78,16 @@ public class MarkerService {
     @Transactional
     public List<MarkerView> findMarkersForCurrentUser() {
         return markerConvertor.convert(markerRepository.findByUserEntityId(currentUser()));
+    }
+
+    @SneakyThrows
+    @Transactional
+    public List<MarkerView> findMarkersForUserById(UUID uuid) {
+        UserEntity user = userRepository.getOne(uuid);
+        if(!user.getShareMyData()){
+            throw new Exception("Data sharing is forbidden");
+        }
+        return markerConvertor.convert(markerRepository.findByUserEntityId(user));
     }
 
     @SneakyThrows
@@ -103,5 +112,6 @@ public class MarkerService {
         String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userRepository.findUserByLogin(login).get();
     }
+
 
 }

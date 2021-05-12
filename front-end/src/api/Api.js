@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: `http://localhost:8080`,
-    headers: { 'Authorization': localStorage.getItem('token')}
+    baseURL: `http://192.168.0.100:8080`,
+    headers: {'Authorization': localStorage.getItem('token')}
 });

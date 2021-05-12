@@ -18,6 +18,10 @@ export default function Markers() {
         setCurrentMarker(coords);
         currCoord = coords;
     }
+    const handleBounds = (bounds) => {
+        currCoord = bounds;
+        console.log(currCoord);
+    }
 
     const handleContainerCallback = (responseDatastr) => {
 
@@ -38,8 +42,8 @@ export default function Markers() {
         }
         const paramsBody = {
             tags: JSON.parse(dataObj.activeTags),
-            minRange: dataObj.minRange,
-            maxRange: dataObj.maxRange,
+            minPrice: dataObj.minPrice,
+            maxPrice: dataObj.maxPrice,
             description: dataObj.description,
             coords: coords
         }
@@ -60,25 +64,28 @@ export default function Markers() {
         const dataObj = JSON.parse(data);
         const params = {
             tags: dataObj.activeTags.replaceAll('"', '').replaceAll('[', '').replaceAll(']', ''),
-            lat: currCoord[0].lat.toString(),
-            lng: currCoord[0].lng.toString(),
-            minRange: dataObj.minRange,
-            maxRange: dataObj.maxRange
+            minPrice: dataObj.minPrice,
+            maxPrice: dataObj.maxPrice,
+            northWestLat: currCoord._southWest.lat,
+            northWestLng: currCoord._southWest.lng,
+            southEastLat: currCoord._northEast.lat,
+            southEastLng: currCoord._northEast.lng
+
         }
         console.log(params);
-         Api.get('/markers/search', {
-             params: params
-         })
-             .then(originalPromiseResult => {
+        Api.get('/markers/search/bounds', {
+            params: params
+        })
+            .then(originalPromiseResult => {
 
-                 console.log(originalPromiseResult);
-                 setMarkers(originalPromiseResult.data)
+                console.log(originalPromiseResult);
+                setMarkers(originalPromiseResult.data)
 
-             })
-             .catch(rejectedValueOrSerializedError => {
-                 // showSnack("error", "Wrong password or something :/");
-                 console.log(rejectedValueOrSerializedError)
-             })
+            })
+            .catch(rejectedValueOrSerializedError => {
+                // showSnack("error", "Wrong password or something :/");
+                console.log(rejectedValueOrSerializedError)
+            })
 
     }
 
@@ -91,7 +98,8 @@ export default function Markers() {
                 <MapComp
                     currentCoords={handleCallback}
                     coords={currentMarker}
-                    markers = {markers}
+                    markers={markers}
+                    bounds={handleBounds}
                 />
             </Grid>
         </div>)

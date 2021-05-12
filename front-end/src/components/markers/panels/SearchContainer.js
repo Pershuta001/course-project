@@ -60,14 +60,14 @@ let tagsAct = '';
 export default function SearchContainer(props) {
 
     const classes = useStyles();
-    const [minRange, setMinRange] = useState(0);
-    const [maxRange, setMaxRange] = useState(20);
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(20);
 
     function handleClick() {
         const response = {
             activeTags: tagsAct,
-            minRange: minRange,
-            maxRange: maxRange
+            minPrice: minPrice,
+            maxPrice: maxPrice
         };
 
         props.responseData(JSON.stringify(response));
@@ -100,7 +100,7 @@ export default function SearchContainer(props) {
                             },
                         }}
                         className={classes.textField2}
-                        onChange={e => setMinRange(e.target.value)}
+                        onChange={e => setMinPrice(e.target.value)}
                     />
                     <span className={classes.spaceLabel}>:</span>
                     <TextField
@@ -111,7 +111,7 @@ export default function SearchContainer(props) {
                             },
                         }}
                         className={classes.textField2}
-                        onChange={e => setMaxRange(e.target.value)}
+                        onChange={e => setMaxPrice(e.target.value)}
                     />
                 </Grid>
             </Grid>

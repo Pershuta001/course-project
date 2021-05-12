@@ -66,7 +66,18 @@ public class UserHistoryController {
     }
 
     @ResponseBody
-    @PostMapping("/reply/confirm")
+    @GetMapping("/replies/my")
+    @PreAuthorize("hasAuthority('marker:read')")
+    public ResponseEntity<List<ReplyResponseView>> getMyReplies() {
+        return ResponseEntity
+                .ok()
+                .body(userHistoryConverter.convert(
+                        userHistoryService.getMyReplies()
+                ));
+    }
+
+    @ResponseBody
+    @PostMapping("/reply/setDate")
     @PreAuthorize("hasAuthority('marker:read')")
     public ResponseEntity<String> confirmReply(
             @RequestBody ConfirmReplyView confirmReplyView
@@ -75,6 +86,32 @@ public class UserHistoryController {
                 .ok()
                 .body(
                         userHistoryService.confirmReply(confirmReplyView)
+                );
+    }
+
+    @ResponseBody
+    @PostMapping("/reply/confirm/maintainer")
+    @PreAuthorize("hasAuthority('marker:read')")
+    public ResponseEntity<String> confirmReplyAsMaintainer(
+            @RequestBody UUID uuid
+    ) {
+        return ResponseEntity
+                .ok()
+                .body(
+                        userHistoryService.confirmAsMaintainer(uuid)
+                );
+    }
+
+    @ResponseBody
+    @PostMapping("/reply/confirm/replier")
+    @PreAuthorize("hasAuthority('marker:read')")
+    public ResponseEntity<String> confirmReplyAsReplier(
+            @RequestBody UUID uuid
+    ) {
+        return ResponseEntity
+                .ok()
+                .body(
+                        userHistoryService.confirmAsReplier(uuid)
                 );
     }
 

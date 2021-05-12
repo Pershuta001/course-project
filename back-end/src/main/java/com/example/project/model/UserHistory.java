@@ -38,6 +38,12 @@ public class UserHistory {
     @Column(name = "date")
     private Date date;
 
+    @Column(name = "confirmedByMaintainer")
+    private Boolean confirmedByMaintainer;
+
+    @Column(name = "confirmedByReplier")
+    private Boolean confirmedByReplier;
+
     @Column(name = "answer", nullable = false, length = 512)
     private String answer;
 

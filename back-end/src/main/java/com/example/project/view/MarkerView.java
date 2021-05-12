@@ -20,5 +20,6 @@ public class MarkerView {
     private Double minPrice;
     private Double maxPrice;
     private Coords coords;
+    private UserView userView;
 
 }

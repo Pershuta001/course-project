@@ -3,6 +3,7 @@ package com.example.project.convertors;
 import com.example.project.model.Marker;
 import com.example.project.view.Coords;
 import com.example.project.view.MarkerView;
+import com.example.project.view.UserView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +29,13 @@ public class MarkerConvertor {
                 .maxPrice(marker.getMaxPrice())
                 .minPrice(marker.getMinPrice())
                 .tags(tagConvertor.convert(marker.getTags()))
+                .userView(UserView
+                        .builder()
+                        .userFirstname(marker.getUserEntityId().getFirstName())
+                        .userLastname(marker.getUserEntityId().getLastName())
+                        .karma(marker.getUserEntityId().getKarma())
+                        .rating(marker.getUserEntityId().getRating())
+                        .build())
                 .build();
     }
 }

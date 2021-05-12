@@ -2,6 +2,7 @@ package com.example.project.controllers;
 
 import com.example.project.services.UserService;
 import com.example.project.view.ChangePasswordView;
+import com.example.project.view.RatingView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -66,5 +67,15 @@ public class UserController {
         return ResponseEntity
                 .ok()
                 .body(userService.updateLastname(lastname));
+    }
+
+    @ResponseBody
+    @PutMapping("/profile/rating")
+    public ResponseEntity<String> updateRating(
+            @RequestBody RatingView rating
+            ) {
+        return ResponseEntity
+                .ok()
+                .body(userService.updateRating(rating));
     }
 }

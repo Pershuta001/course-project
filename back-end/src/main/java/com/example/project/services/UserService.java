@@ -6,6 +6,7 @@ import com.example.project.model.UserEntity;
 import com.example.project.repositories.SocialRepository;
 import com.example.project.repositories.UserRepository;
 import com.example.project.view.ChangePasswordView;
+import com.example.project.view.RatingView;
 import com.example.project.view.UserViewSignUp;
 import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -92,6 +93,15 @@ public class UserService {
     public String updateLastname(String lastname) {
         UserEntity user = currentUser();
         user.setLastName(lastname);
+        userRepository.save(user);
+        return "success";
+    }
+
+    @Transactional
+    public String updateRating(RatingView rating) {
+        UserEntity user = currentUser();
+        user.setKarma(user.getKarma() + rating.getKarma());
+        user.setRating((user.getRating() + rating.getRating()) / 2);
         userRepository.save(user);
         return "success";
     }

@@ -22,6 +22,9 @@ public class UserConvertor {
                 .phone1(userViewSignUp.getPhone1())
                 .hashedPassword(bCryptPasswordEncoder.encode(userViewSignUp.getPassword()))
                 .role(Roles.USER.ordinal())
+                .karma(0.)
+                .rating(0.)
+                .shareMyData(true)
                 .build();
     }
 

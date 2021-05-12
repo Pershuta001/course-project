@@ -14,12 +14,11 @@ import {useHistory} from "react-router-dom";
 import {makeStyles} from "@material-ui/styles";
 import {selectStatus, signInUser} from "../features/auth/Auth";
 import {unwrapResult} from "@reduxjs/toolkit";
+import Api from "../api/Api";
 
 
 const useStyles = makeStyles((theme) => ({
-    textField: {
-
-    },
+    textField: {},
     style: {
         color: '#4CBBA0'
     }
@@ -117,7 +116,7 @@ function SignInUpPage() {
     const doSignUp = (e) => {
         e.preventDefault();
         if (validateSignUp()) {
-            axios.post('http://localhost:8080/sign-up', {
+            Api.post('sign-up', {
                 login: email,
                 password: password,
                 firstName: name,
@@ -139,21 +138,21 @@ function SignInUpPage() {
     const doSignIn = (e) => {
         e.preventDefault();
         if (validateSignIn()) {
-                dispatch(
-                    signInUser({
-                        login: email,
-                        password: password
-                    })
-                ).then(unwrapResult)
-                    .then(originalPromiseResult => {
-                        console.log(originalPromiseResult)
-                        //showSnack("success","You successfully signed up !");
-                        history.push("/home");
-                    })
-                    .catch(rejectedValueOrSerializedError => {
-                        //showSnack("error","Wrong password or something :/");
-                        console.log(rejectedValueOrSerializedError)
-                    })
+            dispatch(
+                signInUser({
+                    login: email,
+                    password: password
+                })
+            ).then(unwrapResult)
+                .then(originalPromiseResult => {
+                    console.log(originalPromiseResult)
+                    //showSnack("success","You successfully signed up !");
+                    history.push("/home");
+                })
+                .catch(rejectedValueOrSerializedError => {
+                    //showSnack("error","Wrong password or something :/");
+                    console.log(rejectedValueOrSerializedError)
+                })
         }
     }
 

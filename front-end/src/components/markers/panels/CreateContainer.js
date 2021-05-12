@@ -63,15 +63,15 @@ export default function CreateContainer(props) {
     const classes = useStyles();
 
     const [description, setDescription] = useState('');
-    const [minRange, setMinRange] = useState(0);
-    const [maxRange, setMaxRange] = useState(20);
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(20);
 
     function handleClick() {
         const response = {
             activeTags: tagsAct,
             description: description,
-            minRange: minRange,
-            maxRange: maxRange
+            minPrice: minPrice,
+            maxPrice: maxPrice
         };
         props.responseData(JSON.stringify(response));
     }
@@ -110,7 +110,7 @@ export default function CreateContainer(props) {
             </Grid>
             <Grid>
                 <Grid>
-                    <span className={classes.header2}>min/max range in km:</span>
+                    <span className={classes.header2}>min/max price range:</span>
                 </Grid>
                 <Grid>
                     <TextField
@@ -120,7 +120,7 @@ export default function CreateContainer(props) {
                                 input: classes.resize,
                             },
                         }}
-                        onChange={e => setMinRange(e.target.value)}
+                        onChange={e => setMinPrice(e.target.value)}
                         className={classes.textField2}
                     />
                     <span className={classes.spaceLabel}>:</span>
@@ -132,7 +132,7 @@ export default function CreateContainer(props) {
                             },
                         }}
                         className={classes.textField2}
-                        onChange={e => setMaxRange(e.target.value)}
+                        onChange={e => setMaxPrice(e.target.value)}
                     />
                 </Grid>
             </Grid>
