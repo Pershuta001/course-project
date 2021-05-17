@@ -7,6 +7,8 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import CreateContainer from "./panels/CreateContainer";
 import SearchContainer from "./panels/SearchContainer";
 import Api from "../../api/Api";
+import TextField from "@material-ui/core/TextField";
+import {validateLastname} from "../utils/Validation";
 
 
 const useStyles = makeStyles({
@@ -30,12 +32,11 @@ export default function CriteriaContainer(props) {
     };
 
     const [tags, setTags] = useState([]);
-
     useEffect(() => {
         const id = setInterval(() =>
                 Api.get('/tags/all')
                     .then(response => {
-                         setTags(response.data);
+                        setTags(response.data);
                     })
                     .catch(rejectedValueOrSerializedError => {
                         // showSnack("error", "Wrong password or something :/");
@@ -61,6 +62,7 @@ export default function CriteriaContainer(props) {
         else
             setView(<SearchContainer tags={tags} responseData={handleContainer}/>);
     };
+
 
 
     return (

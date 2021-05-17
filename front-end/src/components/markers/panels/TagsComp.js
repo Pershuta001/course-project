@@ -6,6 +6,8 @@ import {makeStyles} from "@material-ui/styles";
 import ScrollArea from "react-scrollbar";
 import FormGroup from "@material-ui/core/FormGroup";
 import Api from "../../../api/Api";
+import TextField from "@material-ui/core/TextField";
+import {Grid} from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
     scrollArea: {
@@ -20,7 +22,12 @@ const useStyles = makeStyles(() => ({
         '&$checked': {
             color: '#ffffff',
         },
-    }
+    },
+    textField: {
+        boxSizing: "border-box",
+        backgroundColor: "white",
+        margin: "5px"
+    },
 }));
 
 const WhiteCheckbox = withStyles({
@@ -40,6 +47,7 @@ export default function Tags(props) {
     const classes = useStyles();
     const tags = props.tags;
     const checked = initMap();
+    const [search, setSearch] = useState('');
 
     function initMap() {
         let temp = new Map();
@@ -59,7 +67,12 @@ export default function Tags(props) {
         return res;
     }
 
-    const tagList = tags.map((tag) => renderTag(tag));
+    const tagList = tags.map((tag) => {
+        if (tag.includes(search)) {
+            return renderTag(tag);
+        }
+        return '';
+    });
 
     function renderTag(tag) {
         return (
@@ -82,12 +95,23 @@ export default function Tags(props) {
     };
 
     return (
-        <ScrollArea
-            speed={0.8}
-            className={classes.scrollArea}>
-            <FormGroup>
-                {tagList}
-            </FormGroup>
-        </ScrollArea>
+        <div>
+            <TextField
+                type="text"
+                fullWidth
+                id="search"
+                placeholder="Search"
+                autoFocus
+                className={classes.textField}
+                onChange={e => setSearch(e.target.value)}
+            />
+            <ScrollArea
+                speed={0.8}
+                className={classes.scrollArea}>
+                <FormGroup>
+                    {tagList}
+                </FormGroup>
+            </ScrollArea>
+        </div>
     );
 }

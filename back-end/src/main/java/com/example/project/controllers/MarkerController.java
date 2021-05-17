@@ -24,7 +24,6 @@ public class MarkerController {
     public ResponseEntity<String> createMarker(
             @RequestBody MarkerView marker
     ) {
-        System.err.println(marker);
         return ResponseEntity
                 .ok()
                 .body(markerService.createMarker(marker));

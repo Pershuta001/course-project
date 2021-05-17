@@ -3,6 +3,7 @@ import HomeMarkers from "./markers/HomeMarkers";
 import ActiveReplies from "./replies/ActiveReplies";
 import AllReplies from "./all/AllReplies";
 import Shared from "./shared/Shared";
+import ActiveRequests from "./requests/ActiveRequests";
 
 export default function ActivePanel(props) {
 
@@ -16,6 +17,9 @@ export default function ActivePanel(props) {
                 break;
             case "active":
                 elem = <ActiveReplies data={data}/>;
+                break;
+            case "active requests":
+                elem = <ActiveRequests data={data}/>;
                 break;
             case "all":
                 elem = <AllReplies data={data}/>;

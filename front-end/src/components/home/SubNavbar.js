@@ -40,6 +40,9 @@ function SubNavbar() {
             case "active":
                 getDataFromServer('/my/replies/active');
                 break;
+            case "active requests":
+                getDataFromServer('/replies/my');
+                break;
             case "all":
                 getDataFromServer('/my/replies/all');
                 break;
@@ -73,12 +76,16 @@ function SubNavbar() {
                 </Button>
 
                 <Button color={"inherit"}
-                        onClick={() => changeView("all")}>
-                    <span>All replies</span>
+                        onClick={() => changeView("active requests")}>
+                    <span>Active requests</span>
                 </Button>
                 <Button color={"inherit"}
                         onClick={() => changeView("shared")}>
-                    <span>Shared</span>
+                    <span>Contacts</span>
+                </Button>
+                <Button color={"inherit"}
+                        onClick={() => changeView("all")}>
+                    <span>Archive</span>
                 </Button>
             </Toolbar>
             <ActivePanel view={activeView} data={data}/>

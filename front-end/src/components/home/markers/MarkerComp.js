@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
     row: {
         margin: "0",
         padding: "0",
-        height: "100px",
+        border: "3px solid #E6EEEE",
         '&:hover': {
             background: "#E6EEEE",
         },
@@ -47,56 +47,53 @@ export default function MarkerComp(props) {
 
     function markerComp(index, marker) {
         console.log(marker)
-        return (<Grid key={index} item xs={12} sm container className={classes.row}>
-            <Grid>
-                <Avatar
-                    className={classes.large}>
-                    <span className={classes.label}>{user.name.charAt(0)}</span>
-                </Avatar>
-            </Grid>
-            <Grid item xs={7} container direction="column" spacing={2} zeroMinWidth>
-                <Grid item xs>
-                 <span className={classes.textStyle}>
-                    {marker.tags.join(', ')}
-                 </span>
+        return (
+            <Grid key={index} item xs={12} sm container className={classes.row} spacing={3}>
+                <Grid>
+                    <Avatar
+                        className={classes.large}>
+                        <span className={classes.label}>{marker.userView.userFirstname.charAt(0)}</span>
+                    </Avatar>
                 </Grid>
-                <Grid item xs>
-                 <span className={classes.subtextStyle}>
-                    {marker.description}
-                 </span>
+                <Grid item xs={5} container direction="column" spacing={2} zeroMinWidth>
+                    <Grid container direction="column" spacing={1}>
+                        <Grid>
+                            <span
+                                className={classes.textStyle}>{'Host: ' + marker.userView.userFirstname + ' ' + marker.userView.userLastname}</span>
+
+                        </Grid>
+                        <Grid>
+                            <span
+                                className={classes.textStyle}>{' Rating: ' + marker.userView.rating}</span>
+
+                        </Grid>
+                        <Grid>
+                            <span
+                                className={classes.textStyle}>{' Karma: ' + marker.userView.karma}</span>
+                        </Grid>
+                        <Grid>
+                            <span className={classes.textStyle}>
+                                 {'Tags: ' + marker.tags.join(', ')}
+                             </span>
+                        </Grid>
+                        <Grid>
+                             <span className={classes.textStyle}>
+                                {'Description: ' + marker.description}
+                             </span>
+                        </Grid>
+                        <Grid>
+                             <span className={classes.textStyle}>
+                                {'Price range: ' + marker.minPrice + '-' + marker.maxPrice}
+                             </span>
+                        </Grid>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs sm>
-                    <span className={classes.subtextStyle}>
-                   min
-                    </span>
-                    <span className={classes.subtextStyle}>
-                    {marker.minRange}
-                    </span>
-                    <span className={classes.subtextStyle}>
-                   {marker.maxRange}
-                    </span>
-                    <span className={classes.subtextStyle}>
-                     max
-                    </span>
+                <Grid className={classes.gridWidth}>
+                    <Button className={classes.largeIcon}>
+                        <DeleteIcon/>
+                    </Button>
                 </Grid>
-                <Grid item xs sm>
-                      <span className={classes.subtextStyle}>
-                          {marker.coords.lat}
-                    </span>
-                    <span className={classes.subtextStyle}>
-                          {marker.coords.lng}
-                    </span>
-                </Grid>
-            </Grid>
-            <Grid container justify="center"
-                  className={classes.gridWidth}>
-                <Button>
-                    <DeleteIcon className={classes.largeIcon} color={"action"}/>
-                </Button>
-            </Grid>
-        </Grid>)
+            </Grid>)
     }
 
 

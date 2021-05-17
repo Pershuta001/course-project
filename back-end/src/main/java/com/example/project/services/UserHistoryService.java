@@ -67,7 +67,7 @@ public class UserHistoryService {
     public String confirmAsMaintainer(UUID uuid) {
         UserHistory userHistory = userHistoryRepository.getOne(uuid);
         UserEntity user = currentUser();
-        if(!userHistory.getMarkerId().getUserEntityId().equals(user)){
+        if (!userHistory.getMarkerId().getUserEntityId().equals(user)) {
             throw new Exception("You have no permission to confirm reply as a maintainer");
         }
         userHistory.setConfirmedByMaintainer(true);
@@ -80,7 +80,7 @@ public class UserHistoryService {
     public String confirmAsReplier(UUID uuid) {
         UserHistory userHistory = userHistoryRepository.getOne(uuid);
         UserEntity user = currentUser();
-        if(!userHistory.getUserEntity().equals(user)){
+        if (!userHistory.getUserEntity().equals(user)) {
             throw new Exception("You have no permission to confirm reply");
         }
         userHistory.setConfirmedByReplier(true);

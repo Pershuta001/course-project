@@ -17,6 +17,8 @@ public class ReplyResponseView {
     private UUID userId;
     private String userFirstname;
     private String userLastname;
+    private Double replierRating;
+    private Double replierKarma;
     private String answer;
     private MarkerView marker;
 }

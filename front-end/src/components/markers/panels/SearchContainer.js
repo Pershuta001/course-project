@@ -89,7 +89,7 @@ export default function SearchContainer(props) {
             </Grid>
             <Grid>
                 <Grid>
-                    <span className={classes.header2}>min/max range in km:</span>
+                    <span className={classes.header2}>min/max price:</span>
                 </Grid>
                 <Grid>
                     <TextField

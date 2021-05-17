@@ -7,7 +7,6 @@ import {useSelector} from "react-redux";
 import {selectUser} from "../../../features/auth/Auth";
 import DeleteIcon from '@material-ui/icons/Delete';
 import ShareIcon from '@material-ui/icons/Share';
-import Api from "../../../api/Api";
 
 const useStyles = makeStyles(() => ({
     row: {
@@ -45,20 +44,11 @@ const useStyles = makeStyles(() => ({
 
 }));
 
-export default function ReplyComp(props) {
-
-    function shareContacts(uuid) {
-        Api.post("/reply/setDate", {
-            replyId: uuid,
-            markerId: uuid
-        }).then().catch();
-        document.getElementById(uuid).remove();
-    }
+export default function RequestComp(props) {
 
     function replyComp(index, reply) {
-        console.log(reply)
         return (
-            <Grid key={reply.replyId} id={reply.replyId} item xs={12} sm container className={classes.row} spacing={3}>
+            <Grid key={index} item xs={12} sm container className={classes.row} spacing={3}>
                 <Grid>
                     <Avatar
                         className={classes.large}>
@@ -129,10 +119,7 @@ export default function ReplyComp(props) {
                     </Grid>
                 </Grid>
                 <Grid className={classes.gridWidth}>
-                    <Button className={classes.largeIcon}
-                            onClick={() => shareContacts(reply.replyId)}>
-                        <ShareIcon/>
-                    </Button>
+
                     <Button className={classes.largeIcon}>
                         <DeleteIcon/>
                     </Button>

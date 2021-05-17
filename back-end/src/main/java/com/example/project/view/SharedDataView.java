@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -13,9 +14,11 @@ import java.util.List;
 @Builder
 public class SharedDataView {
 
-    private String userFirstname;
-    private String userLastname;
+    private UserView replier;
     private MarkerView marker;
-    private List<String> socials;
+    private UUID replyId;
+    private List<String> ownerSocials;
+    private List<String> replierSocials;
+
 
 }

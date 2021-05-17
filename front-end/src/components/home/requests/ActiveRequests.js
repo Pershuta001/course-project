@@ -1,7 +1,7 @@
 import React from 'react';
-import ReplyComp from "./ReplyComp";
+import RequestComp from "./RequestComp";
 
-function ActiveReplies(props) {
+function ActiveRequests(props) {
 
    // const replies =  ;
         /*[{
@@ -21,8 +21,8 @@ function ActiveReplies(props) {
             userIcon: []
         }]*/
     return (
-        <ReplyComp replies={props.data} user={props.user}/>
+        <RequestComp replies={props.data}/>
     )
 }
 
-export default ActiveReplies;
+export default ActiveRequests;
